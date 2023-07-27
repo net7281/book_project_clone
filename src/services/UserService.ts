@@ -1,5 +1,5 @@
 
-import { LoginReqType } from './../types';
+import { LoginReqType } from '../types';
 import axios from "axios";
 
 

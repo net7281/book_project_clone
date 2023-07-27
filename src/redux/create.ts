@@ -27,4 +27,4 @@ const create=()=> {
     return store;
 }
 
-export default create();
+export default create;

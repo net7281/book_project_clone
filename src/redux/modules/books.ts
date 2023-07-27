@@ -1,6 +1,6 @@
 import {BookReqType, BookResType} from "../../types";
 import {createActions, handleActions} from "redux-actions";
-import {call, put, select} from "redux-saga/effects";
+import {call, put, select, takeLatest} from "redux-saga/effects";
 import {BookService} from "../../services/BookService";
 import axios from "axios";
 import {AnyAction} from "redux";
@@ -54,7 +54,7 @@ export const {getBooks, addBook, deleteBook, editBook} = createActions(
     options
 )
 
-function * getBookSaga(){
+function * getBooksSaga(){
     try {
         yield put(pending());
         const token : string = yield select((state)=> state.auth.token)
@@ -102,3 +102,69 @@ interface DeleteBookSagaAction extends AnyAction {
     bookId: number;
 }
 
+function * deleteBookSaga(action: DeleteBookSagaAction) {
+    try {
+        const bookId = action.payload;
+        yield put(pending());
+        const token:string = yield select((state)=>state.auth.token);
+        yield call(BookService.deleteBook, token, bookId);
+        const books:BookResType[] = yield select((state)=>state.books.books)
+        yield put(success(books.filter((book)=> book.bookId !== bookId)))
+    }catch (error){
+        if (axios.isAxiosError(error)){
+            console.error('에러메세지 : ', error?.response?.data?.error);
+            yield put(
+                fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
+            )
+        }else{
+            console.error("이상한에러 ",error);
+            return '이상한 에러 생겼습니다..'
+        }
+
+    }
+}
+
+interface EditBookSagaAction extends AnyAction {
+    payload: {
+        bookId: number;
+        book: BookReqType;
+    };
+}
+
+function* editBookSaga(action: EditBookSagaAction){
+    console.log(action)
+    try {
+        yield put(pending());
+        const token: string = yield select((state) => state.auth.token);
+        const newBook: EditBookSagaAction = yield call(
+            BookService.editBook,
+            token,
+            action.payload.bookId,
+            action.payload.book
+        )
+        const books :BookResType[] =yield select((state)=>state.books.books)
+        yield put(
+            success(
+                books.map((book)=>(book.bookId === newBook.bookId ? newBook : book))
+            )
+        )
+    } catch (error){
+        if (axios.isAxiosError(error)){
+            console.error('에러메세지 : ', error?.response?.data?.error);
+            yield put(
+                fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
+            )
+        }else{
+            console.error("이상한에러 ",error);
+            return '이상한 에러 생겼습니다..'
+        }
+
+    }
+}
+
+export function * booksSaga(){
+    yield takeLatest(`${options.prefix}/GET_BOOKS`, getBooksSaga);
+    yield takeLatest(`${options.prefix}/ADD_BOOK`, addBookSaga);
+    yield takeLatest(`${options.prefix}/DELETE_BOOK`, deleteBookSaga);
+    yield takeLatest(`${options.prefix}/EDIT_BOOK`, editBookSaga);
+}
