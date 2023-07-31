@@ -18,7 +18,7 @@ function Router(){
                 <ScrollToTop />
                 <Routes>
                     {/*  패스와 컴포넌트 연결~ 아마 위에서 아래로?? 작동하는듯 */}
-                    {/*<Route path='/' element={<Home />} />*/}
+                    <Route path='/' element={<Home />} />
 
                     <Route path='/*' element={<NotFound />} />
                 </Routes>

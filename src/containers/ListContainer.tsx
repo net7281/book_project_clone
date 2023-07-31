@@ -33,8 +33,8 @@ export const ListContainer =()=>{
         dispatch(logoutSaga());
     }, [dispatch]);
 
-    const goAdd = useCallback((bookId:number) =>{
-        navigate(`/edit/${bookId}`)
+    const goAdd = useCallback(() =>{
+        navigate('/add');
     },[navigate])
 
     const goEdit = useCallback(
@@ -52,8 +52,16 @@ export const ListContainer =()=>{
     );
 
     return(
-        <List/>
+        <List
+            books={books}
+            loading={loading}
+            getBooks={getBooks}
+            error={error}
+            logout={logout}
+            goAdd={goAdd}
+            goEdit={goEdit}
+            deleteBook={deleteBook}
+        />
     )
-
 }
 
