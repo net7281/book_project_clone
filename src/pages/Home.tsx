@@ -6,7 +6,7 @@ const Home = ()=>{
     const token = useToken();
 
     if(token === null){
-        return <Navigate replace to= '/singin'/>
+        return <Navigate replace to= '/signin'/>
     }
     return <ListContainer/>;
 };
