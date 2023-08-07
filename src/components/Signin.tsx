@@ -37,7 +37,7 @@ const Signin = ({login, error, loading}: SigninProps)=>{
 
     return (
         <S.SigninRow align='middle'>
-            <S.BgSignin src='/bg_book.jpg' alt='books' />
+            {/*<S.BgSignin src='/bg_book.jpg' alt='books' />*/}
             <Col span={24}>
                 <S.SigninContents>
                     <Col span={24}>

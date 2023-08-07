@@ -7,6 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary'; //에러처리 라이브�
 // router page
 import Home from './pages/Home';
 import Signin from './pages/Signin';
+import Add from './pages/Add';
 import NotFound from './pages/NotFound';
 import Error from './pages/Error';
 
@@ -22,7 +23,7 @@ function Router(){
                     {/*  패스와 컴포넌트 연결~ 아마 위에서 아래로?? 작동하는듯 */}
                     <Route path='/' element={<Home />} />
                     <Route path='/signin' element={<Signin />} />
-
+                    <Route path='/add' element={<Add />} />
                     <Route path='/*' element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

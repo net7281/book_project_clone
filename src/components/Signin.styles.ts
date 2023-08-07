@@ -3,7 +3,7 @@ import { Button, Input, Row } from 'antd';
 
 export const SigninRow = styled(Row)`
   height: 100vh;
-  background: #333;
+  background: #ff88d422;
   position: relative;
 `;
 
@@ -13,7 +13,7 @@ export const SigninContents = styled(Row)`
   border-radius: 20px;
   background-color: white;
   padding: 60px 0px;
-  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 100%);
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
   font-family: 'KyoboHand', sans-serif;
 `;
 
@@ -40,7 +40,7 @@ export const SigninUnderline = styled.div`
   margin-left: auto;
   margin-bottom: 40px;
   border-radius: 20%;
-  background: linear-gradient(to right, #ff88d4, #330034);
+  background: linear-gradient(to right, #ff88d4, #ffcfee);
 `;
 
 export const Required = styled.span`
@@ -103,11 +103,11 @@ export const SigninButton = styled(Button)`
   }
 `;
 
-export const BgSignin = styled.img`
-  position: absolute;
-  width: 100%;
-  object-fit: cover;
-  margin: auto;
-  display: block;
-`;
+// export const BgSignin = styled.img`
+//   position: absolute;
+//   width: 100%;
+//   object-fit: cover;
+//   margin: auto;
+//   display: block;
+// `;
 
